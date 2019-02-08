@@ -1,0 +1,55 @@
+#!/bin/bash
+
+memu=`nvidia-smi --query-gpu=memory.used --format=csv,noheader,nounits`
+memt=`nvidia-smi --query-gpu=memory.total --format=csv,noheader,nounits`
+let memp=$memu*100/$memt
+
+temp=`nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits`
+util=`nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits`
+
+if [ $memp -lt 21 ]; then 
+	left='sky'
+elif [ $memp -gt 20 ] && [ $memp -lt 41 ]; then
+        left='blue'
+elif [ $memp -gt 40 ] && [ $memp -lt 61 ]; then
+        left='orange'
+elif [ $memp -gt 60 ] && [ $memp -lt 81 ]; then
+        left='green'
+elif [ $memp -gt 80 ] && [ $memp -lt 91 ]; then
+        left='purple'
+elif [ $memp -gt 90 ]; then
+        left='red'
+fi
+
+
+if [ $temp -lt 21 ]; then 
+	middle='sky'
+elif [ $temp -gt 20 ] && [ $temp -lt 41 ]; then
+	middle='blue'
+elif [ $temp -gt 40 ] && [ $temp -lt 61 ]; then
+        middle='orange'
+elif [ $temp -gt 60 ] && [ $temp -lt 81 ]; then
+        middle='green'
+elif [ $temp -gt 80 ] && [ $temp -lt 91 ]; then
+        middle='purple'
+elif [ $temp -gt 90 ]; then
+        middle='red'
+fi
+
+if [ $util -lt 21 ]; then 
+	right='sky'
+elif [ $util -gt 20 ] && [ $util -lt 41 ]; then
+	right='blue'
+elif [ $util -gt 40 ] && [ $util -lt 61 ]; then
+        right='orange'
+elif [ $util -gt 60 ] && [ $util -lt 81 ]; then
+        right='green'
+elif [ $util -gt 80 ] && [ $util -lt 91 ]; then
+        right='purple'
+elif [ $util -gt 90 ]; then
+        right='red'
+fi
+
+msi-keyboard -m normal -c left,$left,high -c middle,$middle,high -c right,$right,high  
+
+
