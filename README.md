@@ -7,4 +7,4 @@ Shows memory % used on the left, temperature in the middle, GPU utilisation on t
 I put it in cron, using crontab -e
 
 The cron command is:
-* * * * *  col 
+'* * * * *  col '
